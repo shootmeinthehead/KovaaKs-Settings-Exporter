@@ -305,7 +305,7 @@ if (-not $proc){
 	addrdebug
 	$ET = Get-Date
 	
-	"eax0x1 ebx0 int 0x80 (syscall exit)`n`n|| -------------------------------------------- ||"
+	"KovaaKs has exited`n`n|| -------------------------------------------- ||"
 	
 	$DT  = $ET - $ST
 	$FMDT = $ST.ToString("hh:mmtt 'on' dd/MM/yy")
@@ -316,7 +316,7 @@ if (-not $proc){
 	Clear-Host
 	[Console]::SetCursorPosition(0, $startTop)
 	exptkv
-	Write-Host "Press Enter to Close" -NoNewline
+	Write-Host "Press Any Key to Close" -NoNewline
 	$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 	
 } else {
@@ -340,7 +340,7 @@ if (-not $proc){
 	Clear-Host
 	[Console]::SetCursorPosition(0, $startTop)
 	exptkv
-	Write-Host "Press Enter to Close" -NoNewline
+	Write-Host "Press Any Key to Close" -NoNewline
 	$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
