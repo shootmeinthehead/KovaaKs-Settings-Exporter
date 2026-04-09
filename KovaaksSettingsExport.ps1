@@ -20,7 +20,7 @@ $fixedHeight = 100
 $proc = Get-Process | Where-Object { $_.MainWindowTitle -like "*KovaaK*" -and $_.Path -like "*steam*" } | Sort-Object CPU -Descending | Select-Object -First 1
 $baseaddr = $proc.MainModule.BaseAddress
 #$addrmap = @(
-#	@{ name = "processPath"; value = $proc.Path }
+#	@{ name = "proccesPath"; value = $proc.Path }
 #	@{ name = "PID"; value = $proc.Id }
 #	@{ name = "RAM"; value = "{0:N2} MB " -f ($proc.WorkingSet64 / 1MB) }
 #)
@@ -175,7 +175,9 @@ function exptkv {
 	
 	while (-not (Test-Path $DesiredPath)) {
 		if ($DesiredPath -eq "cc") {
-		$DesiredPath = $PSScriptRoot
+		$procKVKEXPT = Get-Process | Where-Object { $_.MainWindowTitle -like "*settings export*"} | Sort-Object CPU -Descending | Select-Object -First 1
+		$exeprocpath = Split-Path $procKVKEXPT.Path
+		$DesiredPath = $exeprocpath
 		} else {
 		$DesiredPath = Read-Host "`nThe folder doesn't exist... Try again" }
 	}	
@@ -302,10 +304,12 @@ if (-not $proc){
         "εΞπτKvK running"
     )
 	$ST = Get-Date 
+	clear-host
 	addrdebug
+	
 	$ET = Get-Date
 	
-	"KovaaKs has exited`n`n|| -------------------------------------------- ||"
+	"eax0x1 ebx0 int 0x80 (syscall exit)`n`n|| -------------------------------------------- ||"
 	
 	$DT  = $ET - $ST
 	$FMDT = $ST.ToString("hh:mmtt 'on' dd/MM/yy")
@@ -315,8 +319,11 @@ if (-not $proc){
 	Add-Content -Path $LogP -Value $LogE
 	Clear-Host
 	[Console]::SetCursorPosition(0, $startTop)
+	$host.UI.RawUI.WindowTitle = (
+        "εΞπτKvK settings export"
+    )
 	exptkv
-	Write-Host "Press Any Key to Close" -NoNewline
+	Write-Host "Press Enter to Close" -NoNewline
 	$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 	
 } else {
@@ -324,7 +331,7 @@ if (-not $proc){
 	$host.UI.RawUI.WindowTitle = (
         "εΞπτKvK running"
     )
-	
+	clear-host
 	addrdebug
 	
 	$ET = Get-Date
@@ -339,8 +346,11 @@ if (-not $proc){
 	Add-Content -Path $LogP -Value $LogE
 	Clear-Host
 	[Console]::SetCursorPosition(0, $startTop)
+	$host.UI.RawUI.WindowTitle = (
+        "εΞπτKvK settings export"
+    )
 	exptkv
-	Write-Host "Press Any Key to Close" -NoNewline
+	Write-Host "Press Enter to Close" -NoNewline
 	$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
